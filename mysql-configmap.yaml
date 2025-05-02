@@ -1,9 +1,0 @@
-# mysql-configmap.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mysql-config
-data:
-  DB_HOST: "18.205.240.204"
-  DB_PORT: "3306"
-  DB_NAME: "springdb"
