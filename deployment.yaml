@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hip-app
+  labels:
+    app: hip-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hip-app
+  template:
+    metadata:
+      labels:
+        app: hip-app
+    spec:
+      containers:
+      - name: hip-app
+        image: <your-docker-image>  # Replace with your Docker image
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://<db-host>:3306/mydatabase"  # Replace <db-host> with the DB server IP/hostname
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: database-secrets
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-secrets
+              key: password
+        - name: SPRING_DATASOURCE_DRIVER-CLASS-NAME
+          value: "com.mysql.cj.jdbc.Driver"
+        - name: SPRING_JPA_HIBERNATE_DDL-AUTO
+          value: "update"
+        - name: SPRING_JPA_SHOW-SQL
+          value: "true"
+      restartPolicy: Always
