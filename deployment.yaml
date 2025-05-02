@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: hip-app
-        image: <your-docker-image>  # Replace with your Docker image
+        image:   # Replace with your Docker image
         ports:
         - containerPort: 8080
         env:
